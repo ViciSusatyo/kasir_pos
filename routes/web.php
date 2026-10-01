@@ -9,6 +9,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/kasir', function () {
+    return view('kasir');
+});
+
 Route::get('/dashboard', function () {
     return auth()->user()->role === 'admin'
         ? redirect()->route('admin.dashboard')
@@ -31,4 +35,4 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
