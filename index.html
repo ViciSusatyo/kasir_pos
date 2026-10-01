@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kasir — TOKO RETAIL MAKMUR</title>
+
+    <!-- Gaya tampilan kasir -->
+    <link rel="stylesheet" href="chasier.css" />
+</head>
+<body>
+
+    <!-- ===== Wadah utama aplikasi kasir ===== -->
+    <div class="pos-container">
+
+        <!-- ===== HEADER: identitas toko di kiri, nomor transaksi & tanggal di kanan ===== -->
+        <header class="header">
+            <div class="header-store">
+                <h1 class="store-name">TOKO RETAIL MAKMUR</h1>
+                <p class="store-address">Jl. Contoh No. 123 &bull; Jember &bull; Telp. 0812-xxxx-xxxx</p>
+            </div>
+
+            <div class="header-info">
+                <div class="info-box">
+                    <span class="info-label">No. Transaksi</span>
+                    <span class="info-value" id="trxNumber">TRX-20260101-001</span>
+                </div>
+                <div class="info-box">
+                    <span class="info-label">Tanggal / Jam</span>
+                    <span class="info-value" id="trxDate">-</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- ===== AREA UTAMA: dua kolom (kiri = input & keranjang, kanan = ringkasan bayar) ===== -->
+        <main class="main">
+
+            <!-- ---------- KOLOM KIRI ---------- -->
+            <section class="main-left">
+
+                <!-- Card 1: pencarian barang + data pelanggan -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Tambah Barang</h2>
+                    </div>
+                    <div class="card-body">
+
+                        <!-- Area pencarian: input + tombol Cari + dropdown hasil -->
+                        <div class="search-area">
+                            <input
+                                type="text"
+                                id="searchInput"
+                                class="form-control"
+                                placeholder="Cari nama / kode / barcode barang..."
+                                autocomplete="off"
+                            />
+                            <button type="button" class="btn btn-primary" onclick="searchProduct()">Cari</button>
+
+                            <!-- Hasil pencarian ditampilkan oleh JavaScript -->
+                            <div id="productResults" class="product-results"></div>
+                        </div>
+
+                        <!-- Area pelanggan -->
+                        <div class="customer-area">
+                            <div class="form-group">
+                                <label for="customerSelect">Pelanggan</label>
+                                <select id="customerSelect" class="form-control">
+                                    <option value="Umum">Umum</option>
+                                    <option value="Pelanggan Member">Pelanggan Member</option>
+                                    <option value="Member VIP">Member VIP</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="customerId">No. Member / HP</label>
+                                <input
+                                    type="text"
+                                    id="customerId"
+                                    class="form-control"
+                                    placeholder="Opsional"
+                                    autocomplete="off"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: keranjang belanja -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Keranjang Belanja</h2>
+                        <span class="item-count" id="cartCount">0 Item</span>
+                    </div>
+                    <div class="card-body">
+
+                        <!-- Tabel keranjang; disembunyikan otomatis saat kosong -->
+                        <div class="table-wrapper" id="tableWrapper" style="display: none;">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th style="width: 40px;">No</th>
+                                        <th>Barang</th>
+                                        <th style="width: 110px;">Harga</th>
+                                        <th style="width: 130px;">Qty</th>
+                                        <th style="width: 120px;">Subtotal</th>
+                                        <th style="width: 50px;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="cartBody"></tbody>
+                            </table>
+                        </div>
+
+                        <!-- Pesan muncul saat keranjang masih kosong -->
+                        <div class="empty-cart" id="emptyCart">
+                            Keranjang masih kosong. Silakan cari atau scan barang.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ---------- KOLOM KANAN ---------- -->
+            <aside class="main-right">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Ringkasan Pembayaran</h2>
+                    </div>
+                    <div class="card-body">
+
+                        <!-- Ringkasan jumlah item & subtotal -->
+                        <div class="payment-summary">
+                            <div class="summary-row">
+                                <span>Total Item</span>
+                                <span id="totalItem">0</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Subtotal</span>
+                                <span id="subtotal">Rp 0</span>
+                            </div>
+                        </div>
+
+                        <!-- Input diskon, pajak, dan biaya lain -->
+                        <div class="form-group">
+                            <label for="discountPercent">Diskon (%)</label>
+                            <input type="number" id="discountPercent" class="form-control" value="0" min="0" max="100" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="discountAmount">Diskon (Rp)</label>
+                            <input type="number" id="discountAmount" class="form-control" value="0" min="0" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="taxAmount">Pajak / PPN (Rp)</label>
+                            <input type="number" id="taxAmount" class="form-control" value="0" min="0" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="otherAmount">Biaya Lain (Rp)</label>
+                            <input type="number" id="otherAmount" class="form-control" value="0" min="0" />
+                        </div>
+
+                        <!-- Kotak total akhir -->
+                        <div class="total-box">
+                            <span>TOTAL AKHIR</span>
+                            <span id="grandTotal">Rp 0</span>
+                        </div>
+
+                        <!-- Kotak pembayaran: uang dibayar, metode, kembalian -->
+                        <div class="payment-box">
+                            <div class="form-group">
+                                <label for="paidAmount">Uang Dibayar</label>
+                                <input
+                                    type="number"
+                                    id="paidAmount"
+                                    class="form-control payment-input"
+                                    value="0"
+                                    min="0"
+                                />
+                            </div>
+
+                            <!-- Hanya satu metode yang aktif; secara default Tunai -->
+                            <div class="payment-method" id="paymentMethod">
+                                <button type="button" class="method-btn active" onclick="selectPayment(this)">Tunai</button>
+                                <button type="button" class="method-btn" onclick="selectPayment(this)">QRIS</button>
+                                <button type="button" class="method-btn" onclick="selectPayment(this)">Debit</button>
+                                <button type="button" class="method-btn" onclick="selectPayment(this)">Kredit</button>
+                                <button type="button" class="method-btn" onclick="selectPayment(this)">E-Wallet</button>
+                                <button type="button" class="method-btn" onclick="selectPayment(this)">Transfer</button>
+                            </div>
+
+                            <!-- Kotak kembalian: hijau jika cukup, merah jika kurang -->
+                            <div class="change-box" id="changeBox">
+                                <span>KEMBALIAN</span>
+                                <span id="changeAmount">Rp 0</span>
+                            </div>
+                        </div>
+
+                        <!-- Area tombol aksi -->
+                        <div class="action-area">
+                            <button type="button" class="btn btn-warning" onclick="holdTransaction()">Tahan</button>
+                            <button type="button" class="btn btn-danger" onclick="cancelTransaction()">Batal</button>
+                            <button type="button" class="btn btn-success btn-block" onclick="processPayment()">
+                                BAYAR &amp; CETAK
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </main>
+
+        <!-- ===== FOOTER BAR: kasir di kiri, shortcut keyboard di kanan ===== -->
+        <footer class="footer-bar">
+            <span>Kasir: Admin</span>
+            <span>F2 Cari Barang &bull; F4 Bayar &bull; ESC Batal</span>
+        </footer>
+    </div>
+
+    <!-- Logika kasir -->
+    <script src="chasier.js"></script>
+</body>
+</html>

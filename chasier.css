@@ -1,0 +1,568 @@
+/* =============================================================
+   KASIR POS — TOKO RETAIL MAKMUR
+   File gaya: chasier.css
+   Daftar class utama:
+   pos-container, header, main, card, card-header, card-body,
+   search-area, product-results, product-item, customer-area,
+   form-group, form-control, table-wrapper, qty-control,
+   remove-btn, empty-cart, payment-summary, summary-row,
+   total-box, payment-box, payment-input, payment-method,
+   change-box, action-area, btn (btn-primary/warning/danger/success)
+   ============================================================= */
+
+/* ---------- Dasar halaman ---------- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    color: #2c3e50;
+    font-size: 14px;
+}
+
+/* ---------- Wadah utama ---------- */
+.pos-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ---------- HEADER ---------- */
+.header {
+    background-color: #1e3a5f;
+    color: #ffffff;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.store-name {
+    font-size: 24px;
+    letter-spacing: 1px;
+}
+
+.store-address {
+    font-size: 13px;
+    color: #c8d6e5;
+    margin-top: 4px;
+}
+
+.header-info {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.info-box {
+    background-color: rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 8px 16px;
+    min-width: 190px;
+}
+
+.info-label {
+    display: block;
+    font-size: 11px;
+    color: #c8d6e5;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.info-value {
+    display: block;
+    font-size: 15px;
+    font-weight: bold;
+    margin-top: 2px;
+}
+
+/* ---------- AREA UTAMA: dua kolom ---------- */
+.main {
+    flex: 1;
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    align-items: flex-start;
+}
+
+.main-left {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 0;
+}
+
+.main-right {
+    flex: 1;
+    min-width: 0;
+}
+
+/* ---------- CARD ---------- */
+.card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    padding: 14px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-header h2 {
+    font-size: 16px;
+    color: #1e3a5f;
+}
+
+.item-count {
+    background-color: #1e3a5f;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 4px 12px;
+    border-radius: 12px;
+}
+
+.card-body {
+    padding: 18px;
+}
+
+/* ---------- AREA PENCARIAN ---------- */
+.search-area {
+    position: relative;
+    display: flex;
+    gap: 10px;
+}
+
+/* Kolom hasil pencarian muncul di bawah input */
+.product-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 4px;
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    max-height: 240px;
+    overflow-y: auto;
+    display: none;
+    z-index: 50;
+}
+
+.product-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-bottom: 1px solid #f1f3f5;
+    cursor: pointer;
+}
+
+.product-item:last-child {
+    border-bottom: none;
+}
+
+.product-item:hover {
+    background-color: #eef4fb;
+}
+
+.product-item .p-name {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.product-item .p-code {
+    font-size: 12px;
+    color: #7f8c8d;
+}
+
+.product-item .p-price {
+    font-weight: bold;
+    color: #1e3a5f;
+    white-space: nowrap;
+}
+
+/* ---------- AREA PELANGGAN ---------- */
+.customer-area {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px dashed #dee2e6;
+}
+
+/* ---------- FORM ---------- */
+.form-group {
+    margin-bottom: 14px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    color: #57606f;
+    margin-bottom: 5px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    background-color: #ffffff;
+    color: #2c3e50;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #1e3a5f;
+    box-shadow: 0 0 0 3px rgba(30, 58, 95, 0.12);
+}
+
+/* ---------- TABEL KERANJANG ---------- */
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background-color: #f1f3f5;
+    color: #57606f;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 2px solid #dee2e6;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #f1f3f5;
+    vertical-align: middle;
+}
+
+tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.item-name {
+    font-weight: bold;
+}
+
+.item-code {
+    font-size: 12px;
+    color: #7f8c8d;
+}
+
+.row-number {
+    color: #adb5bd;
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+/* Kontrol qty: tombol − , input angka, tombol + */
+.qty-control {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 118px;
+}
+
+.qty-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background-color: #f1f3f5;
+    color: #2c3e50;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.qty-btn:hover {
+    background-color: #e9ecef;
+}
+
+.qty-control input {
+    width: 100%;
+    border: none;
+    text-align: center;
+    font-size: 14px;
+    font-family: inherit;
+    height: 32px;
+    color: #2c3e50;
+}
+
+.qty-control input:focus {
+    outline: none;
+    background-color: #f8f9fa;
+}
+
+.remove-btn {
+    width: 26px;
+    height: 26px;
+    border: none;
+    border-radius: 50%;
+    background-color: #fdecea;
+    color: #c0392b;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.remove-btn:hover {
+    background-color: #c0392b;
+    color: #ffffff;
+}
+
+/* Pesan keranjang kosong */
+.empty-cart {
+    text-align: center;
+    color: #adb5bd;
+    font-size: 14px;
+    padding: 40px 20px;
+}
+
+/* ---------- RINGKASAN PEMBAYARAN ---------- */
+.payment-summary {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    font-size: 14px;
+}
+
+.summary-row span:last-child {
+    font-weight: bold;
+}
+
+/* Kotak TOTAL AKHIR */
+.total-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1e3a5f;
+    color: #ffffff;
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin: 18px 0;
+}
+
+.total-box span:first-child {
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+.total-box span:last-child {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* ---------- KOTAK PEMBAYARAN ---------- */
+.payment-box {
+    border: 1px solid #e9ecef;
+    border-radius: 10px;
+    padding: 16px;
+    background-color: #ffffff;
+}
+
+.payment-input {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Metode pembayaran: grid 3 kolom, hanya satu aktif */
+.payment-method {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin: 4px 0 14px;
+}
+
+.method-btn {
+    padding: 9px 4px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #2c3e50;
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background-color 0.15s, color 0.15s;
+}
+
+.method-btn:hover {
+    background-color: #eef4fb;
+}
+
+/* Metode yang sedang dipilih */
+.method-btn.active {
+    background-color: #1e6fd9;
+    border-color: #1e6fd9;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* Kotak kembalian: hijau */
+.change-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #eafaf1;
+    color: #1e8449;
+    border: 1px solid #c3f0d5;
+    border-radius: 8px;
+    padding: 12px 16px;
+}
+
+.change-box span:first-child {
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+.change-box span:last-child {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Kotak kembalian: merah bila uang dibayar kurang */
+.change-box.short-payment {
+    background-color: #fdecea;
+    color: #c0392b;
+    border-color: #f5c6cb;
+}
+
+/* ---------- AREA TOMBOL AKSI ---------- */
+.action-area {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+}
+
+/* ---------- TOMBOL ---------- */
+.btn {
+    padding: 11px 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: inherit;
+    cursor: pointer;
+    color: #ffffff;
+    transition: filter 0.15s;
+}
+
+.btn:hover {
+    filter: brightness(0.92);
+}
+
+.btn-primary {
+    background-color: #1e6fd9;
+}
+
+.btn-warning {
+    background-color: #f39c12;
+}
+
+.btn-danger {
+    background-color: #e74c3c;
+}
+
+.btn-success {
+    background-color: #27ae60;
+}
+
+/* Tombol lebar penuh (BAYAR & CETAK) */
+.btn-block {
+    flex: 1 1 100%;
+}
+
+/* ---------- FOOTER BAR ---------- */
+.footer-bar {
+    background-color: #22303f;
+    color: #b8c4ce;
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* =============================================================
+   RESPONSIF: pada layar kecil, dua kolom menjadi satu kolom
+   ============================================================= */
+@media (max-width: 900px) {
+    .main {
+        flex-direction: column;
+        padding: 14px;
+    }
+
+    .main-left,
+    .main-right {
+        width: 100%;
+        flex: none;
+    }
+
+    .customer-area {
+        grid-template-columns: 1fr;
+    }
+
+    .store-name {
+        font-size: 20px;
+    }
+
+    .header-info {
+        width: 100%;
+    }
+
+    .info-box {
+        flex: 1;
+        min-width: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .payment-method {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .qty-control {
+        width: 100px;
+    }
+}
