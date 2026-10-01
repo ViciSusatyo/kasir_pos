@@ -11,12 +11,12 @@ Route::get('/', function () {
 
 Route::get('/kasir', function () {
     return view('kasir');
-});
+})->middleware(['auth', 'role:kasir'])->name('kasir');
 
 Route::get('/dashboard', function () {
     return auth()->user()->role === 'admin'
         ? redirect()->route('admin.dashboard')
-        : redirect()->route('kasir.dashboard');
+        : redirect()->route('kasir');
 })->middleware('auth')->name('dashboard');
 
 Route::middleware('auth')->group(function () {
